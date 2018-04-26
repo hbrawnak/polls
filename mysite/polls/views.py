@@ -17,7 +17,9 @@ def index(request):
     return render(request, 'polls/index.html', context)
 
 def detail(request, question_id):
-    return HttpResponse("Detail view %s" % question_id)
+    question = Question.objects.get(pk=question_id)
+    context = {'question':question}
+    return render(request, 'polls/detail.html', context)
 
 def results(request, question_id):
     return HttpResponse("Result view %s" % question_id)
