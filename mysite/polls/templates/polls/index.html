@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'polls/app.html' %}
+
+{% block content %}
     {% if latest_questions %}
         <ul>
             {% for question in latest_questions %}
@@ -14,5 +10,5 @@
     {% else %}
         <p>You don't have any question.</p>
     {% endif %}
-</body>
-</html>
+
+{% endblock %}

@@ -1,16 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Detail</title>
-</head>
-<body>
+{% extends 'polls/app.html' %}
+
+{% block content %}
     <h3>{{question.question_text}}</h3>
 
-    <ul>
+    {% if error_message %}
+        <p style="color: #993333"><strong>{{ error_message}}</strong></p>
+    {% endif %}
+
+    <form action="{% url 'votes' question.id %}" method="post">
+        {% csrf_token %}
+
         {% for choice in question.choice_set.all %}
-            <li>{{choice.choice_text}}</li>
+            <input type="radio" name="choice" id="choice{{forloop.counter}}" value="{{choice.id}}">
+            <label for="choice{{forloop.counter}}">{{choice.choice_text}}</label> <br>
         {% endfor %}
-    </ul>
-</body>
-</html>
+
+        <br>
+        <input type="submit" value="vote">
+    </form>
+{% endblock %}
